@@ -23,58 +23,38 @@ set(GLFW_INSTALL OFF CACHE BOOL "" FORCE)
 
 set(SYSTEM_ENGINE src/System)
 
-file(GLOB_RECURSE HEADER_SYSTEM "src/System/*.h")
-file(GLOB_RECURSE SRC_SYSTEM "src/System/*.cpp")
-source_group("GameEngine/System/Source Files" FILES ${SRC_SYSTEM})
-source_group("GameEngine/System/Header Files" FILES ${HEADER_SYSTEM})
+file(GLOB_RECURSE ENGINE_SYSTEM "src/System/*.h" "src/System/*.cpp" "src/System/*.cpp")
+source_group("GameEngine/System" FILES ${ENGINE_SYSTEM})
 
-file(GLOB_RECURSE HEADER_PHYSICH "src/Physics/*.h")
-file(GLOB_RECURSE SRC_PHYSICH "src/Physics/*.cpp")
-source_group("GameEngine/Physics/Source Files" FILES ${SRC_RENDERER})
-source_group("GameEngine/Physics/Header Files" FILES ${HEADER_RENDERER})
+file(GLOB_RECURSE ENGINE_PHYSICS "src/Physics/*.h" "src/Physics/*.cpp")
+source_group("GameEngine/Physics" FILES ${ENGINE_PHYSICS})
 
-file(GLOB_RECURSE HEADER_RENDERER "src/Renderer/*.h")
-file(GLOB_RECURSE SRC_RENDERER "src/Renderer/*.cpp")
-source_group("GameEngine/Renderer/Source Files" FILES ${SRC_RENDERER})
-source_group("GameEngine/Renderer/Header Files" FILES ${HEADER_RENDERER})
+file(GLOB_RECURSE ENGINE_RENDERER "src/Renderer/*.h" "src/Renderer/*.cpp")
+source_group("GameEngine/Renderer" FILES ${ENGINE_RENDERER})
 
-file(GLOB_RECURSE HEADER_GAME "src/Game/*.h")
-file(GLOB_RECURSE SRC_GAME "src/Game/*.cpp")
-source_group("GameEngine/Game/Source Files" FILES ${SRC_GAME})
-source_group("GameEngine/Game/Header Files" FILES ${HEADER_GAME})
+file(GLOB_RECURSE TEST_GAME "src/Game/*.h" "src/Game/*.cpp")
+source_group("GameEngine/Game" FILES ${TEST_GAME})
 
-file(GLOB_RECURSE HEADER_TETRIS "src/Tetris/*.h")
-file(GLOB_RECURSE SRC_TETRIS "src/Tetris/*.cpp")
-source_group("Tetris/Source Files" FILES ${SRC_TETRIS})
-source_group("Tetris/Header Files" FILES ${HEADER_TETRIS})
+file(GLOB_RECURSE TETRIS "src/Tetris/*.h" "src/Tetris/*.cpp")
+source_group("Tetris" FILES ${TETRIS})
 
-file(GLOB_RECURSE HEADER_CONTROLLER "src/Controller/*.h")
-file(GLOB_RECURSE SRC_CONTROLLER "src/Controller/*.cpp")
-source_group("GameEngine/Controller/Source Files" FILES ${SRC_CONTROLLER})
-source_group("GameEngine/Controller/Header Files" FILES ${HEADER_CONTROLLER})
+file(GLOB_RECURSE ENGINE_CONTROLLER "src/Controller/*.h" "src/Controller/*.cpp")
+source_group("GameEngine/Controller" FILES ${ENGINE_CONTROLLER})
 
 add_executable(${PROJECT_NAME} 
 	src/main.cpp
 	
-	${HEADER_SYSTEM}
-	${HEADER_PHYSICH}
-	${HEADER_RENDERER}
-	${HEADER_GAME}
-	${HEADER_CONTROLLER}
-	
-	${SRC_SYSTEM}
-	${SRC_PHYSICH}
-	${SRC_RENDERER}
-	${SRC_GAME}
-	${SRC_CONTROLLER}
-	
+	${ENGINE_SYSTEM}
+	${ENGINE_PHYSICS}
+	${ENGINE_RENDERER}
+	${ENGINE_CONTROLLER}
+		
 	src/Resources/stb_image.h
 	src/Resources/ResourceManager.cpp
 	src/Resources/ResourceManager.h	
-	
-	${HEADER_TETRIS}
-	${SRC_TETRIS}
-	
+
+	${TEST_GAME}
+	${TETRIS}
 )
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
