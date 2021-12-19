@@ -1,5 +1,6 @@
 #include "Collider.h"
 #include <glm/vec2.hpp>
+#include <glm/glm.hpp>
 
 #include "../Game/GameObjects/IGameObject.h"
 
@@ -10,6 +11,7 @@ namespace Physics
 	BoxCollider::BoxCollider(const glm::vec2 _bottomLeft, const glm::vec2 _topRight, IGameObject* parent)
 		:bottomLeft(_bottomLeft), topRight(_topRight), m_parent(parent)
 	{
+		
 	}
 
 	void BoxCollider::checkCollision(std::vector<IGameObject*> gameObjects)
@@ -40,11 +42,16 @@ namespace Physics
 				glm::vec2 m_center = glm::vec2((m_worldTopRight.x + m_worldBottomLeft.x)/2, (m_worldTopRight.y + m_worldBottomLeft.y) / 2);
 				glm::vec2 currentCenter = glm::vec2((CurrentWorldBottomLeft.x + CurrentWorldTopRight.x) / 2, (CurrentWorldBottomLeft.y + CurrentWorldTopRight.y) / 2);
 				
-				onCollision(&currentCollider);
-				currentCollider.onCollision(this);
+				glm::vec2 collisionSide = currentCenter - m_center;
 
-				if (m_collisionCallback) m_collisionCallback(&currentCollider);
-				if (currentCollider.m_collisionCallback) currentCollider.m_collisionCallback(this);
+				onCollision(&currentCollider, collisionSide);
+				currentCollider.onCollision(this, -collisionSide);
+
+				std::cout << "Collider: Collision: side " << collisionSide.x << ", " << collisionSide.y << std::endl;
+				if (collisionSide.y < 0) std::cout << "bottom collision" << std::endl;
+
+				if (m_collisionCallback) m_collisionCallback(&currentCollider, collisionSide);
+				if (currentCollider.m_collisionCallback) currentCollider.m_collisionCallback(this, -collisionSide);
 			}
 		}
 	}

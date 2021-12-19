@@ -33,7 +33,7 @@ public:
 
 	void rotate();
 
-	void onBlockCollision(Physics::BoxCollider* collider);
+	void onBlockCollision(Physics::BoxCollider* collider, glm::vec2 collisionSide);
 
 private:
 	std::vector<TetrisBlock*> m_blocks;

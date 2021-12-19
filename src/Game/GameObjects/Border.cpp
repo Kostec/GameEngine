@@ -15,7 +15,7 @@ Border::Border(const glm::vec2& position, const glm::vec2& size, const float rot
 
 	Physics::BoxCollider colider(glm::vec2(0), m_size, this);
 
-	colider.setCollisionCallback([&](Physics::BoxCollider* coll) {});
+	colider.setCollisionCallback([&](Physics::BoxCollider* coll, glm::vec2 collisionSide) {});
 	m_objectColliders.emplace_back(colider);
 }
 

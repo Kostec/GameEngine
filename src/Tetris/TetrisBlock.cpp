@@ -17,7 +17,7 @@ TetrisBlock::TetrisBlock(const glm::vec2& position, const float rotation)
 	
 	m_objectColliders.emplace_back(glm::vec2(0), m_size, this);
 
-	m_objectColliders[0].setCollisionCallback([&](Physics::BoxCollider* coll) {collisionCallback(coll); });
+	m_objectColliders[0].setCollisionCallback([&](Physics::BoxCollider* coll, glm::vec2 collisionSide) {collisionCallback(coll); });
 
 	m_horizontalTransmitTimer.onTimerElapsed += MY_METHOD_HANDLER(TetrisBlock::horisontalTimerEllapsed);
 	m_horizontalTransmitTimer.start(50);

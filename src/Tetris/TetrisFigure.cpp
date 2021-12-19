@@ -82,8 +82,6 @@ void TetrisFigure::blockStoppedCallback()
 	}	
 	if (m_blockStoppedCallback)
 	{
-		std::cout << "Tetris Figure collision callback: size y= " << m_size.y << std::endl;
-		std::cout << "Tetris Figure collision callback: y= " << m_kinematic.getPoition().y << std::endl;
 		m_blockStoppedCallback();
 		m_blockStoppedCallback = nullptr;
 	}
@@ -118,7 +116,7 @@ void TetrisFigure::rotate()
 	}
 }
 
-void TetrisFigure::onBlockCollision(Physics::BoxCollider* collider)
+void TetrisFigure::onBlockCollision(Physics::BoxCollider* collider, glm::vec2 collisionSide)
 {
 	blockStoppedCallback();	
 }
