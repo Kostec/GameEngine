@@ -27,10 +27,8 @@ TetrisBlock::TetrisBlock(const glm::vec2& position, const float rotation)
 
 void TetrisBlock::render() const
 {
-	m_pSprite->render(m_kinematic.getPoition(), m_size, m_kinematic.getCurrentAngle(), m_layer);
-
-	std::cout << "----------------------------------------" << std::endl;
-	std::cout << "TetrisBlock Position: " << m_kinematic.getPoition().x << ", " << m_kinematic.getPoition().y << std::endl;
+	if (m_pSprite)
+		m_pSprite->render(m_kinematic.getPoition(), m_size, m_kinematic.getCurrentAngle(), m_layer);
 }
 
 void TetrisBlock::update(const double delta)
@@ -56,7 +54,7 @@ void TetrisBlock::collisionCallback(Physics::BoxCollider* collider)
 	
 	if (m_blockStoppedCallback)
 	{
-		m_kinematic.getCurrentPoition().y = (floor(m_position.y * m_size.y) + 1) / m_size.y;
+		m_kinematic.getCurrentPoition().y = (floor(m_kinematic.getPoition().y * m_size.y) + 1) / m_size.y;
 		m_blockStoppedCallback();
 		m_blockStoppedCallback = nullptr;
 	}

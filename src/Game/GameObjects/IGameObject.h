@@ -28,7 +28,6 @@ public:
 protected:
 	std::string m_tag;
 
-	glm::vec2 m_position;
 	glm::vec2 m_size;
 	float m_layer;
 

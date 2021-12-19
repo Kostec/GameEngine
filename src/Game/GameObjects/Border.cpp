@@ -21,7 +21,7 @@ Border::Border(const glm::vec2& position, const glm::vec2& size, const float rot
 
 void Border::render() const
 {
-	m_pCurrentSprite->render(m_position, m_size, m_kinematic.getCurrentAngle(), m_layer);
+	m_pCurrentSprite->render(m_kinematic.getPoition(), m_size, m_kinematic.getCurrentAngle(), m_layer);
 }
 
 void Border::update(const double delta)

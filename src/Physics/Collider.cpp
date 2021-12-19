@@ -39,12 +39,6 @@ namespace Physics
 
 				glm::vec2 m_center = glm::vec2((m_worldTopRight.x + m_worldBottomLeft.x)/2, (m_worldTopRight.y + m_worldBottomLeft.y) / 2);
 				glm::vec2 currentCenter = glm::vec2((CurrentWorldBottomLeft.x + CurrentWorldTopRight.x) / 2, (CurrentWorldBottomLeft.y + CurrentWorldTopRight.y) / 2);
-
-				bool topCollision = m_center.y < currentCenter.y;
-				bool bottomCollision = m_center.y > currentCenter.y;
-				bool leftCollision = m_center.x > currentCenter.x;
-				bool rightCollision = m_center.x < currentCenter.x;
-
 				
 				onCollision(&currentCollider);
 				currentCollider.onCollision(this);

@@ -16,6 +16,10 @@ class ILevel;
 class Tetris
 {
 public:
+	enum class EGameState {
+		Active, Pause
+	};
+
 	Tetris(const glm::vec2& widowSize);
 	~Tetris();
 
@@ -37,20 +41,17 @@ private:
 
 	std::array<bool, 349> m_keys;
 
-	enum class EGameState {
-		Active, Pause
-	};
-
 	glm::vec2 m_widowSize;
 	EGameState m_CurrentGameState;
 
 	std::shared_ptr<Tank> m_tank;
 	std::shared_ptr<TetrisLevel> m_level;
-	TetrisBlock* m_activeBlock;
 	TetrisFigure* m_activeFigure;
 
 	Timer m_updateTimer;
 
 	double m_blockVelocity = 0.05;
 	double m_maxBlockVelocity = 0.5;
+
+	EGameState m_gameState;
 };

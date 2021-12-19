@@ -26,13 +26,13 @@
 Tetris::Tetris(const glm::vec2& widowSize)
 	: m_CurrentGameState(EGameState::Active),
     m_widowSize(widowSize),
-    m_activeBlock(nullptr),
-    m_activeFigure(nullptr)
+    m_activeFigure(nullptr),
+    m_gameState(Tetris::EGameState::Active)
 {
     m_keys.fill(false);
 
-    m_controller.setKey("Left", new CustomKey(GLFW_KEY_A, [&](bool value) { if (m_activeFigure) m_activeFigure->keyCallback(value ? glm::vec2(-1, -m_blockVelocity) : glm::vec2(0, -m_blockVelocity)); }));
-    m_controller.setKey("Right", new CustomKey(GLFW_KEY_D, [&](bool value) { if (m_activeFigure) m_activeFigure->keyCallback(value ? glm::vec2(1, -m_blockVelocity) : glm::vec2(0, -m_blockVelocity)); }));
+    m_controller.setKey("Left", new CustomKey(GLFW_KEY_A, [&](bool value) { if (m_activeFigure) m_activeFigure->keyCallback(value ? glm::vec2(-m_blockVelocity, -m_blockVelocity) : glm::vec2(0, -m_blockVelocity)); }));
+    m_controller.setKey("Right", new CustomKey(GLFW_KEY_D, [&](bool value) { if (m_activeFigure) m_activeFigure->keyCallback(value ? glm::vec2(m_blockVelocity, -m_blockVelocity) : glm::vec2(0, -m_blockVelocity)); }));
     m_controller.setKey("Down", new CustomKey(GLFW_KEY_S, [&](bool value) { if (m_activeFigure) m_activeFigure->keyCallback(value ? glm::vec2(0, -m_maxBlockVelocity) : glm::vec2(0, -m_blockVelocity)); }));
     m_controller.setKey("Up", new CustomKey(GLFW_KEY_W, [&](bool value) { if (value && m_activeFigure) m_activeFigure->rotate(); }));
 }
@@ -52,6 +52,9 @@ void Tetris::render()
 
 void Tetris::update(const double delta)
 {
+    if (m_gameState == Tetris::EGameState::Pause)
+        return;
+
     if (m_level)
     {
         m_level->update(delta);
@@ -212,8 +215,8 @@ void Tetris::spawnFigure()
     m_activeFigure = generateFigure();
 
     m_activeFigure->setSprite(ResourceManager::getSprite("grass"));
-    //m_activeFigure->getKinematic().setCurrentVelocity(glm::vec2(0.f, -0.05f));
-    m_activeFigure->getKinematic().setCurrentAcceleration(glm::vec2(0.f, -1e-5f));
+    m_activeFigure->getKinematic().setCurrentVelocity(glm::vec2(0.f, -m_blockVelocity));
+    //m_activeFigure->getKinematic().setCurrentAcceleration(glm::vec2(0.f, -1e-5f));
 
     m_activeFigure->setBlockStoppedCallBack([&]() {
         spawnFigure();
