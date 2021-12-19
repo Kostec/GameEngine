@@ -15,7 +15,7 @@ public:
 
 	virtual void render() const = 0;
 	virtual void update(const double delta);
-	Kinematic& getKinematic() { return m_kinematic; }
+	Kinetic& getKinematic() { return m_kinetic; }
 
 	const glm::vec2& getSize() const { return m_size; }
 	const std::vector<Physics::AABB>& getColliders() const { return m_colliders; }
@@ -36,5 +36,5 @@ protected:
 	std::vector<Physics::AABB> m_colliders;
 	std::vector<Physics::BoxCollider> m_objectColliders;
 
-	Kinematic m_kinematic;
+	Kinetic m_kinetic;
 };

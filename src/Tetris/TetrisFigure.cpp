@@ -20,9 +20,9 @@ TetrisFigure::TetrisFigure(glm::vec2 position, std::vector<glm::vec2> blockCoors
 
 void TetrisFigure::addBlock(glm::vec2 blockCoors)
 {
-	TetrisBlock* block = new TetrisBlock(blockCoors + m_kinematic.getPoition(), 0);
+	TetrisBlock* block = new TetrisBlock(blockCoors + m_kinetic.getPosition(), 0);
 	block->setBlockStoppedCallBack([&]() {blockStoppedCallback(); });
-	m_kinematic.onVelocityChanged += METHOD_HANDLER(block->getKinematic(), Kinematic::setCurrentVelocity);
+	m_kinetic.onVelocityChanged += METHOD_HANDLER(block->getKinematic(), Kinetic::setCurrentVelocity);
 
 	m_blocks.emplace_back(block);
 
@@ -64,7 +64,7 @@ void TetrisFigure::setSprite(const std::shared_ptr<RenderEngine::Sprite> pSprite
 
 void TetrisFigure::keyCallback(glm::vec2 velocity)
 {
-	m_kinematic.setCurrentVelocity(velocity);
+	m_kinetic.setCurrentVelocity(velocity);
 	for (auto pBlock : m_blocks)
 	{
 		pBlock->keyCallback(velocity);
@@ -73,12 +73,12 @@ void TetrisFigure::keyCallback(glm::vec2 velocity)
 
 void TetrisFigure::blockStoppedCallback()
 {	
-	m_kinematic.setCurrentVelocity(glm::vec2(0));
+	m_kinetic.setCurrentVelocity(glm::vec2(0));
 	for (auto pBlock : m_blocks)
 	{
 		pBlock->getKinematic().setCurrentVelocity(glm::vec2(0, 0));
-		m_kinematic.getCurrentPoition().y = (floor(m_kinematic.getCurrentPoition().y / m_size.y) + 1) * m_size.y;
-		pBlock->getKinematic().getCurrentPoition().y = (floor(pBlock->getKinematic().getCurrentPoition().y / pBlock->getSize().y) + 1) * pBlock->getSize().y;
+		m_kinetic.getCurrentPosition().y = (floor(m_kinetic.getCurrentPosition().y / m_size.y) + 1) * m_size.y;
+		pBlock->getKinematic().getCurrentPosition().y = (floor(pBlock->getKinematic().getCurrentPosition().y / pBlock->getSize().y) + 1) * pBlock->getSize().y;
 	}	
 	if (m_blockStoppedCallback)
 	{
@@ -111,8 +111,8 @@ void TetrisFigure::rotate()
 	for (int i = 0; i < m_blocks.size(); i++)
 	{
 		auto block = m_blocks[i];
-		block->getKinematic().getCurrentPoition() = m_kinematic.getCurrentPoition() + newState[i];
-		block->getKinematic().getCurrentPoition().y = (floor(block->getKinematic().getCurrentPoition().y / block->getSize().y) + 1) * block->getSize().y;
+		block->getKinematic().getCurrentPosition() = m_kinetic.getCurrentPosition() + newState[i];
+		block->getKinematic().getCurrentPosition().y = (floor(block->getKinematic().getCurrentPosition().y / block->getSize().y) + 1) * block->getSize().y;
 	}
 }
 

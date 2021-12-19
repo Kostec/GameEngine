@@ -28,7 +28,7 @@ TetrisBlock::TetrisBlock(const glm::vec2& position, const float rotation)
 void TetrisBlock::render() const
 {
 	if (m_pSprite)
-		m_pSprite->render(m_kinematic.getPoition(), m_size, m_kinematic.getCurrentAngle(), m_layer);
+		m_pSprite->render(m_kinetic.getPosition(), m_size, m_kinetic.getCurrentAngle(), m_layer);
 }
 
 void TetrisBlock::update(const double delta)
@@ -49,12 +49,12 @@ void TetrisBlock::horisontalTimerEllapsed()
 
 void TetrisBlock::collisionCallback(Physics::BoxCollider* collider)
 {
-	m_kinematic.setCurrentVelocity(glm::vec2(0, 0));
-	m_kinematic.setCurrentAcceleration(glm::vec2(0, 0));
+	m_kinetic.setCurrentVelocity(glm::vec2(0, 0));
+	m_kinetic.setCurrentAcceleration(glm::vec2(0, 0));
 	
 	if (m_blockStoppedCallback)
 	{
-		m_kinematic.getCurrentPoition().y = (floor(m_kinematic.getPoition().y * m_size.y) + 1) / m_size.y;
+		m_kinetic.getCurrentPosition().y = (floor(m_kinetic.getPosition().y * m_size.y) + 1) / m_size.y;
 		m_blockStoppedCallback();
 		m_blockStoppedCallback = nullptr;
 	}

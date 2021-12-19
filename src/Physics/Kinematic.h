@@ -5,25 +5,25 @@
 #include "../Game/IUpdatable.h"
 #include "../System/Events/Event.h"
 
-class Kinematic : public IUpdatable
+class Kinetic : public IUpdatable
 {
 public:
-	Kinematic();
-	Kinematic(glm::vec2 position, glm::vec2 velocity, glm::vec2 acceleration, float angle);
-	Kinematic(Kinematic& kinematic);
-	Kinematic& operator = (Kinematic& kinematic);
-	Kinematic(Kinematic&& kinematic) = delete;
+	Kinetic();
+	Kinetic(glm::vec2 position, glm::vec2 velocity, glm::vec2 acceleration, float angle);
+	Kinetic(Kinetic& kinematic);
+	Kinetic& operator = (Kinetic& kinematic);
+	Kinetic(Kinetic&& kinematic) = delete;
 
-	void setCurrentPoition(glm::vec2 newPosition);
+	void setCurrentPosition(glm::vec2 newPosition);
 	void setCurrentVelocity(glm::vec2 newVelocity);
 	void setCurrentAcceleration(glm::vec2 newAcceleration);
 	void setCurrentAngle(float newAngle);
 
-	glm::vec2& getCurrentPoition() { return m_currentPosition; }
+	glm::vec2& getCurrentPosition() { return m_currentPosition; }
 	glm::vec2& getCurrentVelocity() { return m_currentVelocity; }
 	glm::vec2& getCurrentAcceleration() { return m_currentAcceleration; }
 
-	glm::vec2 getPoition() const { return m_currentPosition; }
+	glm::vec2 getPosition() const { return m_currentPosition; }
 	glm::vec2 getVelocity() const { return m_currentVelocity; }
 	glm::vec2 getAcceleration() const { return m_currentAcceleration; }
 	float getCurrentAngle() const { return m_currentAngle; }
@@ -37,7 +37,7 @@ public:
 
 	Event<glm::vec2> onAccelerationChanged;
 	Event<glm::vec2> onVelocityChanged;
-	Event<glm::vec2> onPoitionChanged;
+	Event<glm::vec2> onPositionChanged;
 	Event<float> onAngleChanged;
 
 private:

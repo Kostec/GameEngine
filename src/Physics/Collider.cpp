@@ -16,8 +16,8 @@ namespace Physics
 
 	void BoxCollider::checkCollision(std::vector<IGameObject*> gameObjects)
 	{
-		glm::vec2 m_worldTopRight = this->topRight + m_parent->getKinematic().getCurrentPoition();
-		glm::vec2 m_worldBottomLeft = this->bottomLeft + m_parent->getKinematic().getCurrentPoition();
+		glm::vec2 m_worldTopRight = this->topRight + m_parent->getKinematic().getCurrentPosition();
+		glm::vec2 m_worldBottomLeft = this->bottomLeft + m_parent->getKinematic().getCurrentPosition();
 
 		for (auto& currentObject : gameObjects)
 		{
@@ -29,8 +29,8 @@ namespace Physics
 			{
 				if (&currentCollider == this) continue;
 
-				glm::vec2 CurrentWorldTopRight = currentCollider.topRight + currentCollider.m_parent->getKinematic().getCurrentPoition();
-				glm::vec2 CurrentWorldBottomLeft = currentCollider.bottomLeft + currentCollider.m_parent->getKinematic().getCurrentPoition();
+				glm::vec2 CurrentWorldTopRight = currentCollider.topRight + currentCollider.m_parent->getKinematic().getCurrentPosition();
+				glm::vec2 CurrentWorldBottomLeft = currentCollider.bottomLeft + currentCollider.m_parent->getKinematic().getCurrentPosition();
 
 				bool hasCollision = !((m_worldBottomLeft.x >= CurrentWorldTopRight.x)
 					|| (m_worldTopRight.x <= CurrentWorldBottomLeft.x)

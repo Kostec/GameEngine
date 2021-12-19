@@ -68,17 +68,17 @@ void TetrisLevel::checkLine()
 		int figurePositionY = i * TETRIS_BLOCK_SIZE;
 
 		int count = std::count_if(m_mapObject.begin(), m_mapObject.end(), [&](IGameObject* obj) {
-			return abs(obj->getKinematic().getCurrentPoition().y - figurePositionY) < TETRIS_BLOCK_SIZE / 2; });
+			return abs(obj->getKinematic().getCurrentPosition().y - figurePositionY) < TETRIS_BLOCK_SIZE / 2; });
 		if (count >= 9)
 		{
-			auto removeIt = std::remove_if(m_mapObject.begin(), m_mapObject.end(), [&](IGameObject* obj) { return abs(obj->getKinematic().getCurrentPoition().y - figurePositionY) < 1; });
+			auto removeIt = std::remove_if(m_mapObject.begin(), m_mapObject.end(), [&](IGameObject* obj) { return abs(obj->getKinematic().getCurrentPosition().y - figurePositionY) < 1; });
 			m_mapObject.erase(removeIt, m_mapObject.end());
 
 			for (auto& obj : m_mapObject)
 			{
-				if (obj->getKinematic().getCurrentPoition().y > figurePositionY)
+				if (obj->getKinematic().getCurrentPosition().y > figurePositionY)
 				{ 
-					obj->getKinematic().getCurrentPoition().y = floor((obj->getKinematic().getCurrentPoition().y - TETRIS_BLOCK_SIZE) * TETRIS_BLOCK_SIZE) / TETRIS_BLOCK_SIZE;
+					obj->getKinematic().getCurrentPosition().y = floor((obj->getKinematic().getCurrentPosition().y - TETRIS_BLOCK_SIZE) * TETRIS_BLOCK_SIZE) / TETRIS_BLOCK_SIZE;
 				}
 			}
 		}
