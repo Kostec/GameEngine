@@ -17,7 +17,6 @@ namespace RenderEngine
 		static void setVieport(unsigned int width, unsigned int height, unsigned int leftOffset = 0, unsigned int bottomOffset = 0);
 		static std::string getRendererStr();
 		static std::string getVersionStr();
-
 	};
 
 }

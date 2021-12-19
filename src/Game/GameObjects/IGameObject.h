@@ -3,9 +3,10 @@
 #include <glm/vec2.hpp>
 #include "../../Physics/PhysicsEngine.h"
 #include "../../Physics/Collider.h"
+#include "../IUpdatable.h"
 #include <string>
 
-class IGameObject
+class IGameObject : public IUpdatable
 {
 public:
 	IGameObject(const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer);
