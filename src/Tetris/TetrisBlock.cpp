@@ -12,9 +12,7 @@
 
 TetrisBlock::TetrisBlock(const glm::vec2& position, const float rotation)
 	:IGameObject(position, glm::vec2(TETRIS_BLOCK_SIZE, TETRIS_BLOCK_SIZE), rotation, 1.f)
-{
-	m_colliders.emplace_back(glm::vec2(0), m_size);
-	
+{	
 	m_objectColliders.emplace_back(glm::vec2(0), m_size, this);
 
 	m_objectColliders[0].setCollisionCallback([&](Physics::BoxCollider* coll, glm::vec2 collisionSide) {collisionCallback(coll); });

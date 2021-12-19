@@ -18,7 +18,6 @@ public:
 	Kinetic& getKinematic() { return m_kinetic; }
 
 	const glm::vec2& getSize() const { return m_size; }
-	const std::vector<Physics::AABB>& getColliders() const { return m_colliders; }
 	virtual std::vector<Physics::BoxCollider>& getObjectColliders() { return m_objectColliders; }
 
 	const std::string getTag() const { return m_tag; };
@@ -32,8 +31,6 @@ protected:
 	float m_layer;
 
 	glm::vec2 m_direction;
-
-	std::vector<Physics::AABB> m_colliders;
 	std::vector<Physics::BoxCollider> m_objectColliders;
 
 	Kinetic m_kinetic;

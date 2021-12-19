@@ -14,10 +14,11 @@ IGameObject::IGameObject(IGameObject& object)
 	m_layer = object.m_layer;
 	m_direction = object.m_direction;
 
-	for (auto currentCollider : object.m_colliders)
+	/*for each (auto& currentCollider in object.getObjectColliders())
 	{
-		m_colliders.emplace_back(currentCollider);
-	}
+		Physics::BoxCollider collider(currentCollider.bottomLeft, currentCollider.topRight, this);
+		m_objectColliders.emplace_back(collider);
+	}*/
 }
 
 void IGameObject::update(const double delta)
