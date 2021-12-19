@@ -25,8 +25,6 @@ public:
 	void update(const double delta) override;
 
 	void setSprite(const std::shared_ptr<RenderEngine::Sprite> pSprite);
-	void setVelocity(const glm::vec2 velocity) override;
-	void addVelocity(const glm::vec2 velocity) override;
 	void keyCallback(glm::vec2 velocity) override;
 
 	void blockStoppedCallback();

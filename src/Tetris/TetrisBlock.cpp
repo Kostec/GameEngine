@@ -11,8 +11,7 @@
 #include "../System/Events/Event.h"
 
 TetrisBlock::TetrisBlock(const glm::vec2& position, const float rotation)
-	:IGameObject(position, glm::vec2(TETRIS_BLOCK_SIZE, TETRIS_BLOCK_SIZE), rotation, 1.f),
-	m_previousPosition(glm::vec2(0))
+	:IGameObject(position, glm::vec2(TETRIS_BLOCK_SIZE, TETRIS_BLOCK_SIZE), rotation, 1.f)
 {
 	m_colliders.emplace_back(glm::vec2(0), m_size);
 	
@@ -28,41 +27,36 @@ TetrisBlock::TetrisBlock(const glm::vec2& position, const float rotation)
 
 void TetrisBlock::render() const
 {
-	m_pSprite->render(m_position, m_size, m_rotation, m_layer);
+	m_pSprite->render(m_kinematic.getPoition(), m_size, m_kinematic.getCurrentAngle(), m_layer);
 
+	std::cout << "----------------------------------------" << std::endl;
+	std::cout << "TetrisBlock Position: " << m_kinematic.getPoition().x << ", " << m_kinematic.getPoition().y << std::endl;
 }
 
 void TetrisBlock::update(const double delta)
 {
-	m_position.y += m_velocity.y * delta;
+	IGameObject::update(delta);
 	m_horizontalTransmitTimer.update(delta);
 }
 
 void TetrisBlock::keyCallback(glm::vec2 velocity)
 {
-	m_velocity = velocity;
+	//m_kinematic.setCurrentVelocity(velocity);
 }
 
 void TetrisBlock::horisontalTimerEllapsed()
 {
-	if (m_velocity.x > 0)
-	{
-		m_position.x += m_size.x;
-	}
-	else if (m_velocity.x < 0)
-	{
-		m_position.x -= m_size.x;
-	}
 	m_horizontalTransmitTimer.start(50);
 }
 
 void TetrisBlock::collisionCallback(Physics::BoxCollider* collider)
 {
-	setVelocity(glm::vec2(0, 0));
+	m_kinematic.setCurrentVelocity(glm::vec2(0, 0));
+	m_kinematic.setCurrentAcceleration(glm::vec2(0, 0));
 	
 	if (m_blockStoppedCallback)
 	{
-		m_position.y = (floor(m_position.y * m_size.y) + 1) / m_size.y;
+		m_kinematic.getCurrentPoition().y = (floor(m_position.y * m_size.y) + 1) / m_size.y;
 		m_blockStoppedCallback();
 		m_blockStoppedCallback = nullptr;
 	}

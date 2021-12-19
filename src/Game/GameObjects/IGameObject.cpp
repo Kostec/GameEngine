@@ -2,7 +2,7 @@
 #include <math.h>
 
 IGameObject::IGameObject(const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer)
-	:m_position(position), m_size(size), m_rotation(rotation), m_layer(layer), m_direction(0, 1), m_velocity(glm::vec2(0)), m_absoluteVelocity(0), m_tag("object")
+	:m_position(position), m_size(size), m_layer(layer), m_direction(0, 1), m_kinematic(position, glm::vec2(0), glm::vec2(0), rotation), m_tag("object")
 {
 
 }
@@ -11,11 +11,9 @@ IGameObject::IGameObject(IGameObject& object)
 {
 	m_position = object.m_position;
 	m_size = object.m_size;
-	m_rotation = object.m_rotation;
+	m_kinematic = object.m_kinematic;
 	m_layer = object.m_layer;
 	m_direction = object.m_direction;
-	m_velocity = object.m_velocity;
-	m_absoluteVelocity = object.m_absoluteVelocity;
 
 	for (auto currentCollider : object.m_colliders)
 	{
@@ -23,8 +21,8 @@ IGameObject::IGameObject(IGameObject& object)
 	}
 }
 
-void IGameObject::setVelocity(const glm::vec2 velocity)
+void IGameObject::update(const double delta)
 {
-	m_velocity = velocity;
-	calculateAbsoluteVelocity();
+	m_kinematic.update(delta);
 }
+

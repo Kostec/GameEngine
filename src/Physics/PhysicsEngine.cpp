@@ -22,9 +22,9 @@ namespace Physics {
 
 	void PhysicsEngine::update(const double delta)
 	{
-		for (auto& currentObject : m_dynamicObjects)
+		/*for (auto& currentObject : m_dynamicObjects)
 		{
-			glm::vec2 currentVelocity = currentObject->getCurrentVelocity();
+			glm::vec2 currentVelocity = currentObject->getKinematic().getCurrentVelocity();
 			if (currentVelocity.x != 0.f || currentVelocity.y != 0.f)
 			{
 
@@ -76,7 +76,7 @@ namespace Physics {
 					}
 				}
 			}
-		}
+		}*/
 	}
 
 	void PhysicsEngine::addDynamicGameObject(std::shared_ptr<IGameObject> pGameObject)

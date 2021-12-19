@@ -47,6 +47,4 @@ protected:
 	BlockStopped m_blockStoppedCallback;
 
 	Timer m_horizontalTransmitTimer;
-
-	glm::vec2 m_previousPosition;
 };

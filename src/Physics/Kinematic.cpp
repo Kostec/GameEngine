@@ -1,5 +1,7 @@
 #include "Kinematic.h"
 
+#include <iostream>
+
 Kinematic::Kinematic()
 	:m_currentPosition(0), m_previousPosition(0),
 	m_currentVelocity(0), m_previousVelocity(0),
@@ -15,6 +17,22 @@ Kinematic::Kinematic(glm::vec2 position, glm::vec2 velocity, glm::vec2 accelerat
 	m_currentAngle(angle), m_previousAngle(angle)
 {
 
+}
+
+Kinematic::Kinematic(Kinematic& kinematic): Kinematic()
+{
+	m_previousAcceleration = kinematic.m_previousAcceleration;
+	m_currentAcceleration = kinematic.m_currentAcceleration;
+	m_previousVelocity = kinematic.m_previousVelocity;
+	m_currentVelocity = kinematic.m_currentVelocity;
+	m_previousPosition = kinematic.m_currentPosition;
+	m_previousAngle = kinematic.m_previousAngle;
+	m_currentAngle = kinematic.m_currentAngle;
+}
+
+Kinematic& Kinematic::operator = (Kinematic& kinematic)
+{
+	return Kinematic(kinematic);
 }
 
 void Kinematic::setCurrentPoition(glm::vec2 newPosition)

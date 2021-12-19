@@ -11,7 +11,6 @@
 #include "../Resources/Resourcemanager.h"
 #include "../Physics/PhysicsEngine.h"
 
-#include "../Game/GameObjects/Tank.h"
 #include "TetrisLevel.h"
 #include "TetrisBlock.h"
 #include "TetrisFigure.h"
@@ -113,7 +112,7 @@ size_t Tetris::getCurrentLevelHeight() const
 TetrisFigure* Tetris::generateFigure()
 {
     srand(time(0));
-    TetrisFigure* newFigure;
+    TetrisFigure* newFigure = nullptr;
     int figureType = rand() % 5;
 
     //figureType = 1;
@@ -213,7 +212,8 @@ void Tetris::spawnFigure()
     m_activeFigure = generateFigure();
 
     m_activeFigure->setSprite(ResourceManager::getSprite("grass"));
-    m_activeFigure->setVelocity(glm::vec2(0.f, -0.05f));
+    //m_activeFigure->getKinematic().setCurrentVelocity(glm::vec2(0.f, -0.05f));
+    m_activeFigure->getKinematic().setCurrentAcceleration(glm::vec2(0.f, -1e-5f));
 
     m_activeFigure->setBlockStoppedCallBack([&]() {
         spawnFigure();
