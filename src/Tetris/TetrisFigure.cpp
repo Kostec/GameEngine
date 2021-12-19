@@ -51,7 +51,6 @@ void TetrisFigure::update(const double delta)
 	{
 		pBlock->update(delta);
 	}
-	//m_position = m_blocks[1]->getKinematic().getCurrentPoition();
 }
 
 void TetrisFigure::setSprite(const std::shared_ptr<RenderEngine::Sprite> pSprite)
@@ -78,11 +77,12 @@ void TetrisFigure::blockStoppedCallback()
 	for (auto pBlock : m_blocks)
 	{
 		pBlock->getKinematic().setCurrentVelocity(glm::vec2(0, 0));
-		m_kinematic.getCurrentPoition().y = (floor(m_kinematic.getCurrentPoition().y * m_size.y) + 1) / m_size.y;
-		pBlock->getKinematic().getCurrentPoition().y = (floor(pBlock->getKinematic().getCurrentPoition().y * pBlock->getSize().y) + 1) / pBlock->getSize().y;
+		m_kinematic.getCurrentPoition().y = (floor(m_kinematic.getCurrentPoition().y / m_size.y) + 1) * m_size.y;
+		pBlock->getKinematic().getCurrentPoition().y = (floor(pBlock->getKinematic().getCurrentPoition().y / pBlock->getSize().y) + 1) * pBlock->getSize().y;
 	}	
 	if (m_blockStoppedCallback)
 	{
+		std::cout << "Tetris Figure collision callback: size y= " << m_size.y << std::endl;
 		std::cout << "Tetris Figure collision callback: y= " << m_kinematic.getPoition().y << std::endl;
 		m_blockStoppedCallback();
 		m_blockStoppedCallback = nullptr;
