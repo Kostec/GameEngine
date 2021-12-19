@@ -6,7 +6,6 @@
 #include "../Physics/Collider.h"
 #include "../Game/GameObjects/Border.h"
 
-#include "../Game/GameObjects/BrickWall.h"
 #include "../Resources/Resourcemanager.h"
 
 #include <iostream>

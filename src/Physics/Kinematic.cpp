@@ -46,6 +46,7 @@ void Kinematic::setCurrentAcceleration(glm::vec2 newAcceleration)
 		m_previousAcceleration = m_currentAcceleration;
 	}
 }
+
 void Kinematic::setCurrentAngle(float newAngle)
 {
 	m_currentAngle = newAngle; 
